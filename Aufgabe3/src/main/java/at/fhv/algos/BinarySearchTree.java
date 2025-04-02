@@ -1,25 +1,29 @@
 package at.fhv.algos;
 
+import java.util.*;
+
 public class BinarySearchTree<T extends Comparable<T>> {
-    private static class Node<T> {
-        private T value;
-        private Node left;
-        private Node right;
-        private Node parent;
+    protected static class Node<T> {
+        protected T value;
+        protected Node left;
+        protected Node right;
+        protected Node parent;
+        protected int height;
 
         Node(T value, Node parent) {
             this.value = value;
             this.parent = parent;
+            this.height = 1; // height of a new node is 1
         }
     }
 
-    private Node<T> root;
+    protected Node<T> root;
 
     public void insert(T value) {
         root = insertRecursive(root, value, null);
     }
 
-    private Node<T> insertRecursive(Node<T> node, T value, Node<T> parent) {
+    protected Node<T> insertRecursive(Node<T> node, T value, Node<T> parent) {
         if (node == null) {
             return new Node<>(value, parent);
         }
@@ -40,7 +44,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return searchRecursive(root, value);
     }
 
-    private Node<T> searchRecursive(Node<T> node, T value) {
+    protected Node<T> searchRecursive(Node<T> node, T value) {
         if (node == null || node.value.equals(value)) {
             return node;
         }
@@ -60,7 +64,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return findMinimumRecursive(root).value;
     }
 
-    private Node<T> findMinimumRecursive(Node node) {
+    protected Node<T> findMinimumRecursive(Node node) {
         while (node.left != null) {
             node = node.left;
         }
@@ -76,7 +80,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return findMaximumRecursive(root).value;
     }
 
-    private Node<T> findMaximumRecursive(Node node) {
+    protected Node<T> findMaximumRecursive(Node node) {
         while (node.right != null) {
             node = node.right;
         }
@@ -122,7 +126,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return removeNodeRecursive(root, value);
     }
 
-    private Node<T> removeNodeRecursive(Node<T> node, T value) {
+    protected Node<T> removeNodeRecursive(Node<T> node, T value) {
         if (node == null) {
             return null;
         }
@@ -153,16 +157,91 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return node;
     }
 
-    public void printTree() {
-        printRecursive(root, "", true);
+    public boolean updateValue(T oldValue, T newValue) {
+        Node<T> node = search(oldValue);
+
+        if (node == null) {
+            return false;
+        }
+
+        T predecessor = findPredecessor(oldValue);
+        T successor = findSuccessor(oldValue);
+
+        if ((predecessor == null || newValue.compareTo(predecessor) > 0) && (successor == null || newValue.compareTo(successor) < 0)) {
+            node.value = newValue;
+            return true;
+        }
+
+        return false;
     }
 
-    private void printRecursive(Node<T> node, String prefix, boolean isRight) {
+    public List<T> inOrderTraversal() {
+        List<T> inOrderList = new ArrayList<>();
+        inOrderTraversalRecursive(root, inOrderList);
+        return inOrderList;
+    }
+
+    protected void inOrderTraversalRecursive(Node<T> node, List<T> inOrderList) {
+        if (node != null) {
+            inOrderTraversalRecursive(node.left, inOrderList);
+            inOrderList.add(node.value);
+            inOrderTraversalRecursive(node.right, inOrderList);
+        }
+    }
+
+    public void printTree() {
+//        displayTree();
+        printRecursive(root, " ", true);
+    }
+
+    protected void printRecursive(Node<T> node, String prefix, boolean isRight) {
         if (node != null) {
             System.out.println(prefix + (isRight ? "└── " : "├── ") + node.value);
             printRecursive(node.left, prefix + (isRight ? "    " : "│   "), false);
             printRecursive(node.right, prefix + (isRight ? "    " : "│   "), true);
         }
+    }
+
+    public void displayTree()
+    {
+        Stack<Node<T>> globalStack = new Stack();
+        globalStack.push(root);
+        int emptyLeaf = 32;
+        boolean isRowEmpty = false;
+        System.out.println("****......................................................****");
+        while(isRowEmpty==false)
+        {
+
+            Stack localStack = new Stack();
+            isRowEmpty = true;
+            for(int j=0; j<emptyLeaf; j++)
+                System.out.print(' ');
+            while(globalStack.isEmpty()==false)
+            {
+                Node temp = globalStack.pop();
+                if(temp != null)
+                {
+                    System.out.print(temp.value);
+                    localStack.push(temp.left);
+                    localStack.push(temp.right);
+                    if(temp.left != null ||temp.right != null)
+                        isRowEmpty = false;
+                }
+                else
+                {
+                    System.out.print("--");
+                    localStack.push(null);
+                    localStack.push(null);
+                }
+                for(int j=0; j<emptyLeaf*2-2; j++)
+                    System.out.print(' ');
+            }
+            System.out.println();
+            emptyLeaf /= 2;
+            while(localStack.isEmpty()==false)
+                globalStack.push((Node<T>) localStack.pop());
+        }
+        System.out.println("****......................................................****");
     }
 
     public static void main(String[] args) {
@@ -171,9 +250,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
         bst.insert(30);
         bst.insert(70);
         bst.insert(20);
+        bst.insert(15);
         bst.insert(40);
-        bst.insert(60);
-        bst.insert(80);
 
         System.out.println("Binary Search Tree:");
         bst.printTree();
@@ -186,5 +264,32 @@ public class BinarySearchTree<T extends Comparable<T>> {
         bst.removeNode(70);
         System.out.println("\nTree after removing 50:");
         bst.printTree();
+
+        List<Integer> inOrderList = bst.inOrderTraversal();
+        System.out.println("\nIn-order traversal:");
+        for (Integer value : inOrderList) {
+            System.out.print(value + " ");
+        }
+//
+//        bst.insert(55);
+//        bst.insert(40);
+//        bst.insert(60);
+//        bst.insert(28);
+//        bst.insert(95);
+//        bst.insert(10);
+//        bst.insert(30);
+//        bst.insert(88);
+//        bst.insert(99);
+//        bst.insert(68);
+//        bst.insert(90);
+//        bst.insert(98);
+//        bst.insert(63);
+//        bst.insert(84);
+//
+//        System.out.println("Binary Search Tree:");
+//        bst.printTree();
+//
+//        boolean isUpdateValid = bst.updateValue(60, 52);
+//        System.out.println("\nUpdate valid: " + isUpdateValid);
     }
 }
