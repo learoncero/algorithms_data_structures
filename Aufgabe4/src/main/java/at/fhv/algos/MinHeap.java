@@ -69,10 +69,17 @@ public class MinHeap {
     }
 
     public void printHeap() {
-        for (int i = 0; i < heap.size(); i++) {
-            System.out.print(heap.get(i) + " ");
+        printRecursive(0, "", true);
+    }
+
+    private void printRecursive(int index, String prefix, boolean isRight) {
+        if (index < heap.size()) {
+            System.out.println(prefix + (isRight ? "└── " : "├── ") + heap.get(index));
+            int left = leftChild(index);
+            int right = rightChild(index);
+            printRecursive(left, prefix + (isRight ? "    " : "│   "), false);
+            printRecursive(right, prefix + (isRight ? "    " : "│   "), true);
         }
-        System.out.println();
     }
 
     public static void main(String[] args) {
