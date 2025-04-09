@@ -68,46 +68,24 @@ public class MinHeap {
         heap.set(j, temp);
     }
 
-    public void displayHeap() {
-        int size = heap.size();
-        int height = (int) Math.floor(Math.log(size) / Math.log(2)) + 1;
-
-        int index = 0;
-        for (int level = 0; level < height; level++) {
-            int levelNodes = (int) Math.pow(2, level);
-            int spacing = (int) Math.pow(2, height - level);
-
-            // Print node values with spacing
-            for (int i = 0; i < levelNodes && index < size; i++, index++) {
-                if (i == 0) System.out.print(" ".repeat(spacing / 2));
-                System.out.print(heap.get(index));
-                System.out.print(" ".repeat(spacing));
-            }
-            System.out.println();
-
-            // Print connecting lines
-            if (level < height - 1) {
-                int lineCount = (int) Math.pow(2, level);
-                for (int i = 0; i < lineCount; i++) {
-                    if (i == 0) System.out.print(" ".repeat(spacing / 2 - 1));
-                    System.out.print("/" + " ".repeat(spacing - 2) + "\\");
-                    System.out.print(" ".repeat(spacing));
-                }
-                System.out.println();
-            }
+    public void printHeap() {
+        for (int i = 0; i < heap.size(); i++) {
+            System.out.print(heap.get(i) + " ");
         }
+        System.out.println();
     }
 
     public static void main(String[] args) {
         MinHeap minHeap = new MinHeap();
-        minHeap.insert(10);
-        minHeap.insert(20);
-        minHeap.insert(15);
-        minHeap.insert(30);
-        minHeap.insert(40);
+        minHeap.insert(3);
         minHeap.insert(5);
-        minHeap.displayHeap();
+        minHeap.insert(12);
+        minHeap.insert(7);
+        minHeap.insert(8);
+        minHeap.insert(45);
+        minHeap.insert(13);
+        minHeap.printHeap();
         System.out.println("Extracted Min: " + minHeap.extractMin());
-        minHeap.displayHeap();
+        minHeap.printHeap();
     }
 }
