@@ -1,0 +1,16 @@
+# Knoten
+A;Hausdach links
+B;Hausdach rechts
+C;Boden links
+D;Boden rechts
+E;Mitte
+
+# Kanten
+A;B;1
+A;C;1
+B;D;1
+C;D;1
+C;E;1
+D;E;1
+D;A;1
+C;B;1

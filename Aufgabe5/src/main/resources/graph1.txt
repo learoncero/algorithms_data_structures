@@ -1,0 +1,9 @@
+# Knoten-Definition: id;value
+A;Start
+B;Mitte
+C;Ziel
+
+# Kanten-Definition: from;to;weight
+A;B;5
+B;C;10
+A;C;15
