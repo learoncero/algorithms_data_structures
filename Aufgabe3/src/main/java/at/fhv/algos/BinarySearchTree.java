@@ -256,6 +256,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
         System.out.println("Binary Search Tree:");
         bst.printTree();
 
+        System.out.println("Searching for 40: " + (bst.search(40) != null ? "Found" : "Not Found"));
+        System.out.println("Searching for 115: " + (bst.search(115) != null ? "Found" : "Not Found"));
         System.out.println("Minimum: " + bst.findMinimum());
         System.out.println("Maximum: " + bst.findMaximum());
         System.out.println("Predecessor of 50: " + bst.findPredecessor(50));
