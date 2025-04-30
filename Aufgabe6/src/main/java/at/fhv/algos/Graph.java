@@ -144,15 +144,8 @@ public class Graph {
         return vertex != null ? vertex : null;
     }
 
-    public static void main(String[] args) throws Exception {
-        Graph graph = new Graph();
-        InputStream input = Graph.class.getClassLoader().getResourceAsStream("graph1.txt");
-        graph.loadFromInputStream(input);
-
-        Graph.Vertex start = graph.getVertex("1");
-
-        System.out.println("DFS Recursive Traversal:");
-        graph.new GraphTraversionAlgorithm() {
+    public void callDfsRec(Vertex vertex) {
+        new GraphTraversionAlgorithm() {
             @Override
             protected void addVertexToOpenList(Vertex vertex) {}
 
@@ -165,14 +158,14 @@ public class Graph {
             protected boolean isOpenListEmpty() {
                 return true;
             }
-        }.dfsRec(start);
+        }.dfsRec(vertex);
+    }
 
-        System.out.println("DFS Traversal:");
-        Graph.DfsIterative dfs = graph.new DfsIterative();
-        dfs.traverseIterative(start);
+    public void callDfsIterative(Vertex vertex) {
+        new DfsIterative().traverseIterative(vertex);
+    }
 
-        System.out.println("\nBFS Traversal:");
-        Graph.BfsIterative bfs = graph.new BfsIterative();
-        bfs.traverseIterative(start);
+    public void callBfsIterative(Vertex vertex) {
+        new BfsIterative().traverseIterative(vertex);
     }
 }
