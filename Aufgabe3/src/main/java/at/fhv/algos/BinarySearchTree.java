@@ -263,8 +263,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
         System.out.println("Predecessor of 50: " + bst.findPredecessor(50));
         System.out.println("Successor of 50: " + bst.findSuccessor(50));
 
-        bst.removeNode(70);
-        System.out.println("\nTree after removing 50:");
+        bst.removeNode(20);
+        System.out.println("\nTree after removing 20:");
         bst.printTree();
 
         List<Integer> inOrderList = bst.inOrderTraversal();
