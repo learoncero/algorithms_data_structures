@@ -60,11 +60,11 @@ public class Graph {
                 if (!closeList.containsKey(current.getId())) {
                     closeList.put(current.getId(), true);
                     System.out.println(current.getId() + " " + current.getValue());
-                }
 
-                for (Map.Entry<Vertex, Integer> entry : current.getNeighbors().entrySet()) {
-                    if (!closeList.containsKey(entry.getKey().getId())) {
-                        addVertexToOpenList(entry.getKey());
+                    for (Map.Entry<Vertex, Integer> entry : current.getNeighbors().entrySet()) {
+                        if (!closeList.containsKey(entry.getKey().getId())) {
+                            addVertexToOpenList(entry.getKey());
+                        }
                     }
                 }
             }
