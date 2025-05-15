@@ -1,0 +1,22 @@
+Bitmaskierung Vorteile:
+    - Sehr speichereffizient (1 `int`)
+    - Ideal für schnelle Vergleiche und Hashing
+    - Kompakt & performant
+
+
+Bitmaskierung Nachteile:
+   - Schwerer lesbar bzw. wartbar
+   - Weniger intuitiv für Einsteiger
+   - Fehleranfälliger bei Änderungen
+
+
+Enum/OO Vorteile:
+    - Klar, lesbar, intuitiv
+    - Erweiterbar (z.B. bei mehr Figuren oder neuen Regeln)
+    - Besser für Debugging
+
+
+Enum/OO Nachteile:
+    - Mehr Speicherverbrauch
+    - Langsameres Vergleichen
+    - Mehr Overhead durch Objekte
