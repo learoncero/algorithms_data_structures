@@ -9,8 +9,8 @@
         <module name="Aufgabe3" />
         <module name="Aufgabe4" />
         <module name="Aufgabe5" />
-        <module name="Aufgabe07" />
         <module name="Aufgabe6" />
+        <module name="Aufgabe7" />
       </profile>
     </annotationProcessing>
   </component>

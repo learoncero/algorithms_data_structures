@@ -253,9 +253,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
         bst.insert(15);
         bst.insert(40);
 
-        System.out.println("Binary Search Tree:");
-        bst.printTree();
-
         System.out.println("Searching for 40: " + (bst.search(40) != null ? "Found" : "Not Found"));
         System.out.println("Searching for 115: " + (bst.search(115) != null ? "Found" : "Not Found"));
         System.out.println("Minimum: " + bst.findMinimum());
@@ -265,7 +262,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
         bst.removeNode(20);
         System.out.println("\nTree after removing 20:");
-        bst.printTree();
 
         List<Integer> inOrderList = bst.inOrderTraversal();
         System.out.println("\nIn-order traversal:");

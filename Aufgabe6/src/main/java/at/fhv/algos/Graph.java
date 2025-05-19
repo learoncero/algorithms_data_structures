@@ -28,18 +28,18 @@ public class Graph {
     }
 
     private abstract class GraphTraversionAlgorithm {
-        protected Map<String, Boolean> closeList = new HashMap<>();
+        protected Set<Vertex> closeList = new HashSet<>();
 
         protected abstract void addVertexToOpenList(Vertex vertex);
         protected abstract Vertex getNextVertex();
         protected abstract boolean isOpenListEmpty();
 
         protected void dfsRec(Vertex vertex) {
-            if (vertex == null || closeList.containsKey(vertex.getId())) {
+            if (vertex == null || closeList.contains(vertex)) {
                 return;
             }
 
-            closeList.put(vertex.getId(), true);
+            closeList.add(vertex);
             System.out.println(vertex.getId() + " " + vertex.getValue());
 
             for (Map.Entry<Vertex, Integer> entry : vertex.getNeighbors().entrySet()) {
@@ -57,14 +57,12 @@ public class Graph {
             while (!isOpenListEmpty()) {
                 Vertex current = getNextVertex();
 
-                if (!closeList.containsKey(current.getId())) {
-                    closeList.put(current.getId(), true);
+                if (!closeList.contains(current)) {
+                    closeList.add(current);
                     System.out.println(current.getId() + " " + current.getValue());
 
                     for (Map.Entry<Vertex, Integer> entry : current.getNeighbors().entrySet()) {
-                        if (!closeList.containsKey(entry.getKey().getId())) {
-                            addVertexToOpenList(entry.getKey());
-                        }
+                        addVertexToOpenList(entry.getKey());
                     }
                 }
             }
